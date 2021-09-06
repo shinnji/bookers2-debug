@@ -15,29 +15,10 @@
             <%= @book.user.name %>
             <% end %>
           </td>
-          <td><%= link_to @book.title, book_path(@book) %></td>
-          <td><%= @book.body %></td>
-          <td><% if current_user.already_favorited?(@book) %>
-                <%= link_to book_favorites_path(@book), method: :destroy do %>
-                  <i class = "fas fa-heart"></i>
-                <% end %>
-              <% else %>
-                <%= link_to book_favorites_path(@book), method: :create do %>
-                  <i class = "far fa-heart"></i>
-                <% end %>
-              <% end %>
-              <%= @book.favorites.count %>
-          </td>
-          <td><% if @user == current_user %>
-          <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %>
-          <% end %>
-          </td>
-          <td><% if @user == current_user %>
-          <%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%>
-          <% end %>
-          </td>
+          <%= render 'favorites/favorites', book: @book, user: @user %>
         </tr>
       </table>
+      <%= render 'books/comment', book: @book, user: @user, book_new: @book_new, book_comment: @book_comment %>
     </div>
   </div>
 </div>

@@ -1,0 +1,19 @@
+ <% book.book_comments.each do |c| %>
+  <tr>
+      <td><%= link_to user_path(book.user) do %></td>
+         <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+         <td><%= c.user.name %></td>
+      <% end %>
+  <td><%= c.content %></td>
+   <td>
+      <% if c.user == current_user %>
+        <%= link_to 'Destroy', book_book_comment_path(book,c), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{book.id}"%>
+      <% end %>
+  <% end %>
+    </td>
+  </tr>
+  <%= form_with model:[book, book_comment], local: true do |f| %>
+  <%= f.text_field :content %>
+  <br>
+  <%= f.submit '投稿' %>
+<% end %>
