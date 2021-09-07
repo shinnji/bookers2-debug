@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user = current_user
     @users = User.all
     @book = Book.new
+    @users = User.where.not(id: current_user.id)
   end
 
   def edit
@@ -27,6 +28,16 @@ class UsersController < ApplicationController
     end
   end
 
+ def followings
+    user = User.find(params[:id])
+    @users = user.followings
+ end
+
+  def followers
+    user = User.find(params[:id])
+    @users = user.followers
+  end
+  
   private
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
