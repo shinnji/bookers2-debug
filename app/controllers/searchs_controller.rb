@@ -19,14 +19,24 @@ class SearchsController < ApplicationController
       # 選択した検索方法がが完全一致だったら
       if method == 'perfect'
         User.where(name: content)
+        # 選択した検索方法がが後方一致だったら
+      elsif method == 'prefix match'
+        User.where('name like ?',content+'%')
+        # 選択した検索方法がが前方一致だったら
+      elsif method == 'backward match'
+        User.where('name like ?','%'+content)
       # 選択した検索方法がが部分一致だったら
       else
         User.where('name LIKE ?', '%'+content+'%')
       end
-    # 選択したモデルがpostだったら
-    elsif model == 'post'
+    # 選択したモデルがbookだったら
+    elsif model == 'book'
       if method == 'perfect'
         Book.where(title: content)
+      elsif method == 'prefix match'
+        Book.where('title like ?',content+'%')
+      elsif method == 'backward match'
+        Book.where('title like ?','%'+content)
       else
         Book.where('title LIKE ?', '%'+content+'%')
       end
