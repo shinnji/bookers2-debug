@@ -18,7 +18,10 @@
           <%= render 'favorites/favorites', book: @book, user: @user %>
         </tr>
       </table>
+      <div id="comments_area">
       <%= render 'books/comment', book: @book, user: @user, book_new: @book_new, book_comment: @book_comment %>
+      </div>
+      </ul>
     </div>
   </div>
 </div>
